@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title_block %}{{ object.title }}{% endblock %}
+{% block content_block %}
+    {% load bugs_extras %}
+    <div class="jumbotron">
+        <form action="" method="post">{% csrf_token %}
+            <h2>#{{ object.pk }} {{ object.title }}</h2>
+
+            <p>{{ object.user }} - {{ object.created|date }}</p>
+
+            <p>{{ object.text }}</p>
+            {% for field in form %}
+                <div class="form-group">
+                    {% if field.errors %}
+                        <div class="alert alert-danger">
+                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                    {{ field.label_tag }}
+                    {{ field|add_attributes:"form-control" }}
+                </div>
+            {% endfor %}
+            <input type="submit" class="btn btn-primary" value="Update"/>
+        </form>
+    </div>
+{% endblock %}

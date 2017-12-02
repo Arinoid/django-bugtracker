@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title_block %}Main{% endblock %}
+{% block content_block %}
+    <h1>Tickets list</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>Title</td>
+            <td>Created</td>
+            <td>Author</td>
+            <td>Status</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for ticket in ticket_list reversed %}
+            <tr class="{% if ticket.status|capfirst == "Closed" %}success{% elif ticket.status|capfirst == "Opened" %}danger{% endif %}">
+                <td><a href="{% url 'ticket-update' ticket.pk %}">{{ ticket.pk }}</a></td>
+                <td><a href="{% url 'ticket-update' ticket.pk %}">{{ ticket.title }}</a></td>
+                <td>{{ ticket.created|date }}</td>
+                <td>{{ ticket.user }}</td>
+                <td>{{ ticket.status|capfirst }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan=4>No tickets yet.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

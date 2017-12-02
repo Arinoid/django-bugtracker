@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title_block %}Main{% endblock %}
+{% block content_block %}
+    <h1>Projects list</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>Title</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for project in project_list %}
+            <tr>
+                <td><a href="{% url 'ticket-index' project.pk %}">{{ project.pk }}</a></td>
+                <td><a href="{% url 'ticket-index' project.pk %}">{{ project.title }}</a></td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan=4>No projects yet.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
